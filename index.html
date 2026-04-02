@@ -743,13 +743,59 @@
 
     /* ─── REVIEWS ─── */
     #depoimentos { background: var(--light); }
-    .rev-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: .9rem;
+
+    /* Mobile: carrossel horizontal */
+    .rev-carousel {
+      position: relative;
     }
-    @media(min-width: 480px) { .rev-grid { grid-template-columns: 1fr 1fr; } }
-    @media(min-width: 860px) { .rev-grid { grid-template-columns: repeat(3,1fr); } }
+    /* O overflow:hidden fica só no track, não engloba os dots */
+    .rev-track {
+      overflow: hidden;
+    }
+    .rev-grid {
+      display: flex;
+      gap: .9rem;
+      transition: transform .35s ease;
+      will-change: transform;
+    }
+    .rev {
+      flex: 0 0 calc(100% - 1.5rem);
+    }
+    /* Dots de navegação — só no mobile */
+    .rev-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 1.1rem;
+      padding-bottom: 2px; /* evita corte do scale(1.3) */
+    }
+    .rev-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gray);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      flex-shrink: 0;
+    }
+    .rev-dot.active {
+      background: var(--brand);
+      transform: scale(1.3);
+    }
+
+    /* Desktop: volta ao grid de 3 colunas, esconde dots */
+    @media(min-width: 768px) {
+      .rev-track { overflow: visible; }
+      .rev-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        transform: none !important;
+        transition: none;
+      }
+      .rev { flex: unset; }
+      .rev-dots { display: none; }
+    }
 
     .rev {
       background: var(--pure);
@@ -931,8 +977,8 @@
     .f-submit:hover { background: var(--brand-mid); transform: translateY(-1px); }
 
     /* ─── MAP ─── */
-    .map-wrap { height: 300px; overflow: hidden; }
-    @media(min-width: 768px) { .map-wrap { height: 360px; } }
+    .map-wrap { height: 220px; overflow: hidden; }
+    @media(min-width: 768px) { .map-wrap { height: 260px; } }
     .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
 
     /* ─── FOOTER ─── */
@@ -1104,7 +1150,6 @@
   <a href="#diferenciais"  onclick="cM()">Diferenciais</a>
   <a href="#depoimentos"   onclick="cM()">Depoimentos</a>
   <a href="#faq"           onclick="cM()">Dúvidas frequentes</a>
-  <a href="#contato"       onclick="cM()">Contato e localização</a>
   <a class="mob-wa"
      href="https://wa.me/5511982858733?text=Olá!%20Vim%20pelo%20site%20e%20quero%20um%20orçamento."
      target="_blank" rel="noopener" onclick="cM()">
@@ -1343,21 +1388,8 @@
     </div>
   </section>
 
-  <!-- REGIONS -->
-  <section id="regioes" aria-labelledby="h2-reg">
-    <div class="container">
-      <p class="eyebrow">Área de cobertura</p>
-      <h2 class="sh2" id="h2-reg">Regiões atendidas pelo Mega Despachante</h2>
-      <p class="slead">Com sede no Jardim Cumbica em Guarulhos, atendemos toda a cidade e municípios da Grande São Paulo. Consulte disponibilidade.</p>
-      <div class="reg-wrap">
-        <span class="rtag">Jardim Cumbica</span><span class="rtag">Cumbica</span><span class="rtag">Vila Galvão</span><span class="rtag">Picanço</span>
-        <span class="rtag">Bonsucesso</span><span class="rtag">Presidente Dutra</span><span class="rtag">Gopoúva</span><span class="rtag">Jardim Tranquilidade</span>
-        <span class="rtag">Pimentas</span><span class="rtag">Taboão</span><span class="rtag">Guarulhos Centro</span><span class="rtag">São João</span>
-        <span class="rtag">Arujá</span><span class="rtag">Santa Isabel</span><span class="rtag">Itaquaquecetuba</span><span class="rtag">Mogi das Cruzes</span>
-        <span class="rtag">São Paulo</span><span class="rtag">Zona Leste SP</span><span class="rtag">Grande São Paulo</span>
-      </div>
-    </div>
-  </section>
+  <!-- REGIONS — seção visual removida; regiões mantidas como texto SEO oculto -->
+  <p aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Despachante veicular atendendo: Jardim Cumbica · Cumbica · Vila Galvão · Picanço · Bonsucesso · Presidente Dutra · Gopoúva · Jardim Tranquilidade · Pimentas · Taboão · Guarulhos Centro · São João · Arujá · Santa Isabel · Itaquaquecetuba · Mogi das Cruzes · São Paulo · Zona Leste SP · Grande São Paulo</p>
 
   <!-- TESTIMONIALS -->
   <section id="depoimentos" aria-labelledby="h2-dep">
@@ -1365,13 +1397,18 @@
       <p class="eyebrow">Avaliações de clientes reais</p>
       <h2 class="sh2" id="h2-dep">O que quem já usou o Mega Despachante diz</h2>
       <p class="slead">Mais de 2.500 atendimentos realizados. Veja depoimentos de quem resolveu com a gente em Guarulhos.</p>
-      <div class="rev-grid">
-        <div class="rev fade"><div class="stars">★★★★★</div><p class="rev-txt">"Fiz a transferência do meu carro em menos de uma semana! Enviei tudo pelo WhatsApp e não fui ao DETRAN de Guarulhos nenhuma vez. Incrível!"</p><div class="reviewer"><div class="rev-av">RC</div><div><div class="rev-name">Ricardo C.</div><div class="rev-loc">Jardim Cumbica, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
-        <div class="rev fade"><div class="stars">★★★★★</div><p class="rev-txt">"Tinha restrição judicial no carro. Eles resolveram tudo com rapidez e preço justo. Melhor despachante veicular em Guarulhos que já usei."</p><div class="reviewer"><div class="rev-av">FM</div><div><div class="rev-name">Fernanda M.</div><div class="rev-loc">Bonsucesso, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
-        <div class="rev fade"><div class="stars">★★★★★</div><p class="rev-txt">"Uso o Mega Despachante para minha frota de caminhões há 3 anos. São pontuais, sérios e com os melhores preços de Guarulhos."</p><div class="reviewer"><div class="rev-av">AL</div><div><div class="rev-name">André L.</div><div class="rev-loc">Presidente Dutra, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
-        <div class="rev fade"><div class="stars">★★★★★</div><p class="rev-txt">"Regularizei minha moto com 2 anos de licenciamento atrasado e multas. Resolveram em dias. Melhor despachante do Jardim Cumbica!"</p><div class="reviewer"><div class="rev-av">PS</div><div><div class="rev-name">Paulo S.</div><div class="rev-loc">Vila Galvão, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
-        <div class="rev fade"><div class="stars">★★★★★</div><p class="rev-txt">"Preço abaixo da concorrência e prazo cumprido. Difícil achar despachante de confiança em Guarulhos — encontrei aqui e indico para todos."</p><div class="reviewer"><div class="rev-av">CK</div><div><div class="rev-name">Carla K.</div><div class="rev-loc">Picanço, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
-        <div class="rev fade"><div class="stars">★★★★★</div><p class="rev-txt">"O veículo tinha dívidas ocultas. Eles identificaram tudo antes da transferência e me salvaram de uma grande dor de cabeça em Guarulhos."</p><div class="reviewer"><div class="rev-av">JB</div><div><div class="rev-name">José B.</div><div class="rev-loc">Pimentas, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
+      <div class="rev-carousel" id="revCarousel">
+        <div class="rev-track">
+        <div class="rev-grid" id="revGrid">
+        <div class="rev"><div class="stars">★★★★★</div><p class="rev-txt">"Fiz a transferência do meu carro em menos de uma semana! Enviei tudo pelo WhatsApp e não fui ao DETRAN de Guarulhos nenhuma vez. Incrível!"</p><div class="reviewer"><div class="rev-av">RC</div><div><div class="rev-name">Ricardo C.</div><div class="rev-loc">Jardim Cumbica, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p class="rev-txt">"Tinha restrição judicial no carro. Eles resolveram tudo com rapidez e preço justo. Melhor despachante veicular em Guarulhos que já usei."</p><div class="reviewer"><div class="rev-av">FM</div><div><div class="rev-name">Fernanda M.</div><div class="rev-loc">Bonsucesso, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p class="rev-txt">"Uso o Mega Despachante para minha frota de caminhões há 3 anos. São pontuais, sérios e com os melhores preços de Guarulhos."</p><div class="reviewer"><div class="rev-av">AL</div><div><div class="rev-name">André L.</div><div class="rev-loc">Presidente Dutra, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p class="rev-txt">"Regularizei minha moto com 2 anos de licenciamento atrasado e multas. Resolveram em dias. Melhor despachante do Jardim Cumbica!"</p><div class="reviewer"><div class="rev-av">PS</div><div><div class="rev-name">Paulo S.</div><div class="rev-loc">Vila Galvão, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p class="rev-txt">"Preço abaixo da concorrência e prazo cumprido. Difícil achar despachante de confiança em Guarulhos — encontrei aqui e indico para todos."</p><div class="reviewer"><div class="rev-av">CK</div><div><div class="rev-name">Carla K.</div><div class="rev-loc">Picanço, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
+        <div class="rev"><div class="stars">★★★★★</div><p class="rev-txt">"O veículo tinha dívidas ocultas. Eles identificaram tudo antes da transferência e me salvaram de uma grande dor de cabeça em Guarulhos."</p><div class="reviewer"><div class="rev-av">JB</div><div><div class="rev-name">José B.</div><div class="rev-loc">Pimentas, Guarulhos</div><div class="rev-src">Google Maps</div></div></div></div>
+        </div><!-- /rev-grid -->
+        </div><!-- /rev-track -->
+        <div class="rev-dots" id="revDots" aria-label="Navegação de depoimentos"></div>
       </div>
     </div>
   </section>
@@ -1435,6 +1472,10 @@
               <div style="font-size:.7rem;color:var(--gray)">4,9 · 247 avaliações · Jardim Cumbica</div>
             </div>
           </div>
+          <!-- Mapa integrado à coluna de contato -->
+          <div class="map-wrap fade" style="margin-top:1.1rem;border-radius:var(--r);overflow:hidden" aria-label="Localização do Mega Despachante — Av. Venturosa 1179, Jardim Cumbica, Guarulhos SP">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.6!2d-46.5347!3d-23.4058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5!2sAv.+Venturosa%2C+1179+Jardim+Cumbica+Guarulhos+SP!5e0!3m2!1spt-BR!2sbr!4v1" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mega Despachante Guarulhos — Jardim Cumbica"></iframe>
+          </div>
         </div>
         <div class="c-form fade">
           <h3>Solicite seu orçamento gratuito</h3>
@@ -1465,11 +1506,6 @@
       </div>
     </div>
   </section>
-
-  <!-- MAP -->
-  <div class="map-wrap" aria-label="Localização do Mega Despachante — Av. Venturosa 1179, Jardim Cumbica, Guarulhos SP">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.6!2d-46.5347!3d-23.4058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5!2sAv.+Venturosa%2C+1179+Jardim+Cumbica+Guarulhos+SP!5e0!3m2!1spt-BR!2sbr!4v1" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mega Despachante Guarulhos — Jardim Cumbica"></iframe>
-  </div>
 
   <!-- INSTAGRAM CTA -->
   <div class="insta-cta">
@@ -1517,13 +1553,12 @@
           <li><a href="https://instagram.com/mega_despachantegru" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="#contato">Formulário de contato</a></li>
           <li><a href="#faq">Perguntas frequentes</a></li>
-          <li><a href="#regioes">Regiões atendidas</a></li>
         </ul>
         <p style="margin-top:.85rem;font-size:.76rem;line-height:1.6;color:rgba(248,250,252,.38)">Seg–Sex: 08h–18h<br>Sábado: 08h–13h</p>
       </div>
     </div>
     <div class="f-bottom">
-      <p>© 2025 Mega Despachante — Jardim Cumbica, Guarulhos — SP. Todos os direitos reservados.</p>
+      <p>© 2026 Mega Despachante — Jardim Cumbica, Guarulhos — SP. Todos os direitos reservados.</p>
     </div>
     <p class="f-seo">Despachante em Guarulhos · Despachante Veicular Guarulhos · Transferência de Veículo Guarulhos · Licenciamento Guarulhos · Segunda Via Documento Veículo Guarulhos · Placa Mercosul Guarulhos · Regularização Veicular Guarulhos · Despachante Jardim Cumbica · CNH bloqueada Guarulhos · IPVA parcelado Guarulhos</p>
   </div>
@@ -1580,6 +1615,48 @@
     const txt = `Olá, Mega Despachante! Vim pelo site.\n\n*Nome:* ${n}\n*WhatsApp:* ${w}\n*Serviço:* ${s}${m ? '\n*Detalhes:* ' + m : ''}`;
     window.open(`https://wa.me/5511982858733?text=${encodeURIComponent(txt)}`, '_blank');
   }
+
+  // ─── REVIEWS CAROUSEL (mobile only) ───
+  (function() {
+    const grid = document.getElementById('revGrid');
+    const dotsEl = document.getElementById('revDots');
+    const cards = grid ? Array.from(grid.querySelectorAll('.rev')) : [];
+    let cur = 0;
+
+    function isMobile() { return window.innerWidth < 768; }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      cards.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.className = 'rev-dot' + (i === cur ? ' active' : '');
+        b.setAttribute('aria-label', 'Depoimento ' + (i + 1));
+        b.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(b);
+      });
+    }
+
+    function goTo(idx) {
+      if (!isMobile()) return;
+      cur = idx;
+      const cardW = cards[0].offsetWidth + parseFloat(getComputedStyle(grid).gap);
+      grid.style.transform = 'translateX(-' + (cur * cardW) + 'px)';
+      dotsEl.querySelectorAll('.rev-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    }
+
+    // Touch / swipe
+    let tx = 0;
+    grid && grid.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    grid && grid.addEventListener('touchend', e => {
+      if (!isMobile()) return;
+      const dx = tx - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) goTo(Math.max(0, Math.min(cards.length - 1, cur + (dx > 0 ? 1 : -1))));
+    });
+
+    window.addEventListener('resize', () => { if (!isMobile()) { grid.style.transform = ''; } else { goTo(cur); } });
+
+    if (cards.length) buildDots();
+  })();
 
   // ─── MÁSCARA DE TELEFONE ───
   const tel = document.getElementById('wapp');
