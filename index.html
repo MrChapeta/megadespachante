@@ -434,70 +434,59 @@
     }
     @media(min-width: 768px) { .hero-accent-line { right: 15%; } }
 
-    /* ── Imagem do veículo — cobre todo o hero com transparência ── */
+    /* ── Veículo decorativo — MOBILE FIRST ── */
     .hero-vehicle {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      bottom: 0;
+      right: -8%;
+      /* mobile: ocupa a tela toda de largura */
+      width: 100vw;
+      max-width: none;
+      height: auto;
+      object-fit: contain;
+      object-position: bottom right;
       pointer-events: none;
-      z-index: 0;
-      opacity: .13;
-      object-fit: cover;
-      object-position: center bottom;
-      mask-image: radial-gradient(
-        ellipse 90% 85% at 60% 60%,
-        rgba(0,0,0,.7) 0%,
-        rgba(0,0,0,.45) 45%,
-        rgba(0,0,0,.15) 70%,
-        transparent 100%
-      );
-      -webkit-mask-image: radial-gradient(
-        ellipse 90% 85% at 60% 60%,
-        rgba(0,0,0,.7) 0%,
-        rgba(0,0,0,.45) 45%,
-        rgba(0,0,0,.15) 70%,
-        transparent 100%
-      );
-      filter: grayscale(30%) brightness(.85);
       user-select: none;
       -webkit-user-drag: none;
+      z-index: 0;
+      opacity: .13;
+      filter: grayscale(15%) brightness(.8);
+      -webkit-mask-image: linear-gradient(
+        to top,
+        rgba(0,0,0,.55) 0%,
+        rgba(0,0,0,.4)  30%,
+        rgba(0,0,0,.15) 62%,
+        transparent     88%
+      );
+      mask-image: linear-gradient(
+        to top,
+        rgba(0,0,0,.55) 0%,
+        rgba(0,0,0,.4)  30%,
+        rgba(0,0,0,.15) 62%,
+        transparent     88%
+      );
     }
-
-    @media(min-width: 480px) {
-      .hero-vehicle {
-        opacity: .16;
-        object-position: 65% bottom;
-      }
+    @media(min-width: 600px) {
+      .hero-vehicle { width: 90vw; right: -4%; opacity: .16; }
     }
-
     @media(min-width: 768px) {
       .hero-vehicle {
-        opacity: .2;
-        object-position: right bottom;
-        mask-image: linear-gradient(
-          to left,
-          rgba(0,0,0,.75) 0%,
-          rgba(0,0,0,.5) 40%,
-          rgba(0,0,0,.18) 65%,
-          transparent 100%
-        );
-        -webkit-mask-image: linear-gradient(
-          to left,
-          rgba(0,0,0,.75) 0%,
-          rgba(0,0,0,.5) 40%,
-          rgba(0,0,0,.18) 65%,
-          transparent 100%
-        );
+        width: 72vw;
+        right: -5%;
+        bottom: -3%;
+        opacity: .22;
+        -webkit-mask-image:
+          linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 50%, transparent 82%),
+          linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 28%);
+        mask-image:
+          linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 50%, transparent 82%),
+          linear-gradient(to right, transparent 0%, rgba(0,0,0,1) 28%);
+        -webkit-mask-composite: destination-in;
+        mask-composite: intersect;
       }
     }
-
     @media(min-width: 1080px) {
-      .hero-vehicle {
-        opacity: .28;
-        width: 52%;
-        right: -2%;
-      }
+      .hero-vehicle { width: 65vw; right: -3%; opacity: .27; }
     }
 
     .hero-location {
@@ -1229,14 +1218,7 @@
   <!-- HERO -->
   <section class="hero" aria-labelledby="h1">
     <div class="hero-accent-line" aria-hidden="true"></div>
-    <img
-      src="veiculo.png"
-      alt=""
-      class="hero-vehicle"
-      aria-hidden="true"
-      loading="eager"
-      draggable="false"
-    />
+    <img src="veiculo.png" alt="" class="hero-vehicle" aria-hidden="true" loading="eager" draggable="false" />
     <div class="container">
 
       <p class="hero-location">
