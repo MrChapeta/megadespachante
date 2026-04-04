@@ -434,66 +434,59 @@
     }
     @media(min-width: 768px) { .hero-accent-line { right: 15%; } }
 
-    /* ── Imagem do veículo — mobile-first com transparência ── */
+    /* ── Imagem do veículo — cobre todo o hero com transparência ── */
     .hero-vehicle {
       position: absolute;
-      bottom: 0;
-      right: -5%;
-      width: 95%;
-      max-width: 640px;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 0;
       opacity: .13;
-      mask-image: linear-gradient(
-        to top,
-        rgba(0,0,0,.55) 0%,
-        rgba(0,0,0,.35) 35%,
-        rgba(0,0,0,.12) 65%,
+      object-fit: cover;
+      object-position: center bottom;
+      mask-image: radial-gradient(
+        ellipse 90% 85% at 60% 60%,
+        rgba(0,0,0,.7) 0%,
+        rgba(0,0,0,.45) 45%,
+        rgba(0,0,0,.15) 70%,
         transparent 100%
       );
-      -webkit-mask-image: linear-gradient(
-        to top,
-        rgba(0,0,0,.55) 0%,
-        rgba(0,0,0,.35) 35%,
-        rgba(0,0,0,.12) 65%,
+      -webkit-mask-image: radial-gradient(
+        ellipse 90% 85% at 60% 60%,
+        rgba(0,0,0,.7) 0%,
+        rgba(0,0,0,.45) 45%,
+        rgba(0,0,0,.15) 70%,
         transparent 100%
       );
-      /* também desvane as bordas laterais */
-      -webkit-mask-composite: destination-in;
-      filter: grayscale(30%) brightness(.9);
-      object-fit: contain;
-      object-position: bottom right;
+      filter: grayscale(30%) brightness(.85);
       user-select: none;
       -webkit-user-drag: none;
     }
 
     @media(min-width: 480px) {
       .hero-vehicle {
-        opacity: .17;
-        right: -2%;
-        width: 80%;
+        opacity: .16;
+        object-position: 65% bottom;
       }
     }
 
     @media(min-width: 768px) {
       .hero-vehicle {
-        opacity: .22;
-        right: -4%;
-        width: 58%;
-        max-width: 720px;
-        bottom: -2%;
+        opacity: .2;
+        object-position: right bottom;
         mask-image: linear-gradient(
           to left,
-          rgba(0,0,0,.7) 0%,
-          rgba(0,0,0,.5) 45%,
-          rgba(0,0,0,.15) 72%,
+          rgba(0,0,0,.75) 0%,
+          rgba(0,0,0,.5) 40%,
+          rgba(0,0,0,.18) 65%,
           transparent 100%
         );
         -webkit-mask-image: linear-gradient(
           to left,
-          rgba(0,0,0,.7) 0%,
-          rgba(0,0,0,.5) 45%,
-          rgba(0,0,0,.15) 72%,
+          rgba(0,0,0,.75) 0%,
+          rgba(0,0,0,.5) 40%,
+          rgba(0,0,0,.18) 65%,
           transparent 100%
         );
       }
